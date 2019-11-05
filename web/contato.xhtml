@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Ajudaí</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.png" />
+    <!-- Place favicon.ico in the root directory -->
+
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <h:outputStylesheet library="css" name="owl.carousel.min.css" />
+    <h:outputStylesheet library="css" name="magnific-popup.css" />
+    <h:outputStylesheet library="css" name="font-awesome.min.css" />
+    <h:outputStylesheet library="css" name="themify-icons.css" />
+    <h:outputStylesheet library="css" name="nice-select.css" />
+    <h:outputStylesheet library="css" name="flaticon.css" />
+    <h:outputStylesheet library="css" name="animate.css" />
+    <h:outputStylesheet library="css" name="slicknav.css" />
+    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputStylesheet library="css" name="theme-default.css" />
+    
+    <h:outputStylesheet library="vendor" name="jquery-1.12.4.min.js" />
+    <h:outputStylesheet library="vendor" name="modernizr-3.5.0.min.js" />
+    
+</h:head>
+
+<h:body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- header-start -->
+    <header>
+        <div class="header-area ">
+            <div class="header-top black-bg d-none d-md-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-lg-6">
+                            <div class="header-contact">
+                                <a href="#"><i class="fa fa-phone"></i> +55 48 98465 9686</a>
+                                <a href="#"><i class="fa fa-envelope"></i> suporte_ajudai@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-lg-6">
+                            <div class="header-top-menu">
+                                <nav>
+                                    <ul>
+                                        
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Logo -->
+            <div id="sticky-header" class="main-header-area white-bg">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo-img">
+                                <a href="index.faces">
+                                    <img src="resources/img/logo.png" alt="" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-7">
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a href="index.faces">Início</a></li>
+                                        <li><a href="instituicoes.faces">Instituições</a></li>
+                                        <li><a href="eventos.faces">Eventos</a></li>
+                                        <li><a href="galeria.faces">Galeria</a></li>
+                                        <li><a href="sobre.faces">Sobre</a></li>
+                                        <li><a class="active" href="contato.faces">Contato</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="quote-area">
+                                
+                                <div class="get-quote d-none d-lg-block">
+                                    <a class="boxed-btn" href="login.faces">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+    <div class="section-title mb-65" style="padding-left: 150px">
+      <span>Contato</span>
+    </div>
+    <div class="row" style="margin: -100px 120px">
+            <div class="col-12" style="padding-top: -420px">
+                        <h2 class="contact-title">Entrar em contato</h2>
+                    </div>
+                    <div class="col-lg-8">
+                        <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+    
+                                        <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Digite sua mensagem'" placeholder="Mensagem"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Seu nome'" placeholder="Seu nome" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Entre com seu endereço de email'" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ifnsira o assunto'" placeholder="Insira o assunto" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="button button-contactForm boxed-btn">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-home"></i></span>
+                            <div class="media-body">
+                                <h3>Senac, Florianópolis, Santa Catarina</h3>
+                                <p>Análise e Desenvolvimento de Sistemas</p>
+                            </div>
+                        </div>
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                            <div class="media-body">
+                                <h3>+55 48 98465 9686</h3>
+                               
+                            </div>
+                        </div>
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-email"></i></span>
+                            <div class="media-body">
+                                <h3>suporte_ajudai@gmail.com</h3>
+                                <p>Envie-nos sua dúvida a qualquer momento!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- ================ contact section start ================= -->
+    <section class="contact-section">
+            <div class="container">
+                <div class="d-none d-sm-block mb-5 pb-4">
+                    <div id="map" style="height: 480px; position: relative; overflow: hidden;">
+                        <div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+                            <div class="gm-style" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px;">
+                                <div tabindex="0" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default; touch-action: pan-x pan-y;">
+                                    <div style="z-index: 1; position: absolute; left: 50%; top: 50%; width: 100%; transform: translate(0px, 0px);">
+                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;">
+                                            <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+                                                <div style="position: absolute; z-index: 991; transform: matrix(1, 0, 0, 1, -100, -189);">
+                                                    <div style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px;">
+                                                        <div style="width: 256px; height: 256px;">
+                                                            
+                                                        </div>
+                                                            
+                                                        
+                                                    </div>
+                                                    <div style="position: absolute; left: -256px; top: 0px; width: 256px; height: 256px;">
+                                                        <div style="width: 256px; height: 256px;">
+                                                            
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <div style="position: absolute; left: -256px; top: -256px; width: 256px; height: 256px;">
+                                                        <div style="width: 256px; height: 256px;">
+                                                            
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <div style="position: absolute; left: 0px; top: -256px; width: 256px; height: 256px;">
+                                                        <div style="width: 256px; height: 256px;">
+                                                            
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    <div style="position: absolute; left: 256px; top: -256px; width: 256px; height: 256px;">
+                                                        <div style="width: 256px; height: 256px;">
+                                                            
+                                                        </div>
+                                                            
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                                    
+                    
+                    <script>
+                        function initMap() {
+                            var uluru = {
+                                lat: -27.60385,
+                                lng: -48.54654
+                            };
+                            var grayStyles = [{
+                                    featureType: "all",
+                                    stylers: [{
+                                            saturation: -90
+                                        },
+                                        {
+                                            lightness: 50
+                                        }
+                                    ]
+                                },
+                                {
+                                    elementType: 'labels.text.fill',
+                                    stylers: [{
+                                        color: '#ccdee9'
+                                    }]
+                                }
+                            ];
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                                center: {
+                                    lat: -27.60385,
+                                    lng: -48.54654
+                                },
+                                zoom: 9,
+                                styles: grayStyles,
+                                scrollwheel: false
+                            });
+                        }
+                    </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&amp;callback=initMap">
+                    </script>
+    
+                </div>
+    
+    
+                
+            </div>
+        </section>
+    <!-- ================ contact section end ================= -->
+
+    <!-- location-area-start -->
+    <div class="addres-area black-bg section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-md-4">
+                    <div class="single-address text-center">
+                        <div class="addres-icon">
+                            <img src="resources/img/icon/1.png" alt="" />
+                        </div>
+                        <h3>Localização</h3>
+                        <p>Florianópolis - Santa Catarina, BR</p>
+                        <a class="underline-hover" href="#">Sua localização</a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4">
+                    <div class="single-address text-center">
+                        <div class="addres-icon">
+                            <img src="resources/img/icon/2.png" alt="" />
+                        </div>
+                        <h3>Lista de instiuições</h3>
+                        <a class="underline-hover" href="instituicoes.faces">Instituições</a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4">
+                    <div class="single-address text-center">
+                        <div class="addres-icon">
+                            <img src="resources/img/icon/3.png" alt="" />
+                        </div>
+                        <h3>Envie sua mensagem</h3>
+                        <p>suporte_ajudai@gmail.com <br />
+                            55 48 984659686</p>
+                        <a class="underline-hover" href="contato.faces">E-mail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- location-area-end -->
+
+    <!-- footer-start -->
+    <footer class="footer-area ">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-sm-6 col-md-3 col-xl-4">
+                    <div class="single-footer-widget footer_1">
+                        <a href="index.faces"> <img src="resources/img/logo-rodape.png" alt="" /> </a>
+                        <div class="social-links">
+                            <ul>
+                                <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
+                                <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>
+                                <li><a href="#"> <i class="fa fa-linkedin"></i> </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-2 col-xl-2">
+                    <div class="single-footer-widget">
+                        <h4>Ajudaí</h4>
+                        <ul>
+                            <li><a href="index.faces">Inicio</a></li>
+                            <li><a href="about.faces">Sobre</a></li>
+                            <li><a href="register.faces">Cadastro</a></li>
+                            <li><a href="contact.faces">Contato</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-xl-3">
+                    <div class="single-footer-widget">
+                        <h4>Instituições</h4>
+                        <ul>
+                            <li><a href="service.faces">Parceiros</a></li>
+                            <li><a href="project.faces">Projetos</a></li>
+                            <li><a href="single-blog.faces">Galeria</a></li>
+                            <li><a href="about.faces">Sobre</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-xl-3">
+                    <div class="single-footer-widget">
+                        <h4>Cadastro</h4>
+                        <ul>
+                            <li><a href="service.faces">Instituições</a></li>
+                            
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="copyright_part_text text-center">
+                        <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright;<script>document.write(new Date().getFullYear());</script> Todos os direitos reservados Ajudaí.
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer-end -->
+        
+        <!-- JS here -->
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/isotope.pkgd.min.js"></script>
+        <script src="js/ajax-form.js"></script>
+        <script src="js/waypoints.min.js"></script>
+        <script src="js/jquery.counterup.min.js"></script>
+        <script src="js/imagesloaded.pkgd.min.js"></script>
+        <script src="js/scrollIt.js"></script>
+        <script src="js/jquery.scrollUp.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/nice-select.min.js"></script>
+        <script src="js/jquery.slicknav.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/plugins.js"></script>
+    
+        <!--contact js-->
+        <script src="js/contact.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="js/jquery.form.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/mail-script.js"></script>
+    
+        <script src="js/main.js"></script>
+    
+    </h:body>
+    
+    </html>

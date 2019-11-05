@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/security
+                            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+ 
+    <http auto-config="true" use-expressions="true" access-denied-page="/login.faces?negado=true">
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN, ROLE_INSTITUCIONAL')"/>
+        <intercept-url pattern="/resources/**" access="permitAll"/>
+        
+        <form-login login-page="/login.faces" authentication-failure-url="/login.faces?erro=true"/>
+        
+        <!--<logout logout-success-url="/login.faces" logout-url="/logout" />-->
+        <logout invalidate-session="true" logout-success-url="/login.faces" logout-url="/logout" delete-cookies="JSESSIONID"/>
+        
+    </http>
+     
+    <authentication-manager >
+        <authentication-provider  >
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="SELECT login, senha, enable FROM user WHERE login = ?"
+                               authorities-by-username-query="SELECT login, p.nome FROM user u join perfil p on u.idPerfil = p.id WHERE login = ?"
+            />
+        </authentication-provider>
+    </authentication-manager>
+ 
+    <!--local-->
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <b:property name="url" value="jdbc:mysql://localhost:3306/ajudaai" />
+        <b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <b:property name="username" value="root" />
+        <b:property name="password" value="" />
+    </b:bean>
+ 
+ 
+</b:beans>
+
+
