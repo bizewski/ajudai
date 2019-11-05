@@ -3,6 +3,7 @@ package br.com.ajudaai.control;
 import br.com.ajudaai.dao.HibernateUtil;
 import br.com.ajudaai.dao.InstituicaoDao;
 import br.com.ajudaai.dao.InstituicaoDaoImpl;
+import br.com.ajudaai.dao.NecessidadeDao;
 import br.com.ajudaai.dao.NecessidadeDaoImpl;
 import br.com.ajudaai.entidade.Comentario;
 import br.com.ajudaai.entidade.Contato;
@@ -18,12 +19,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 @ManagedBean(name = "instituicaoC")
-@SessionScoped
+@ViewScoped
 public class InstituicaoControl implements Serializable {
 
     private List<Instituicao> instituicoes;
@@ -36,20 +36,21 @@ public class InstituicaoControl implements Serializable {
     private InstituicaoDao instituicaoDao;
     private Instituicao instituicao;
     private Session session;
-    private Transaction transaction;
     private User user;
     private Perfil perfil;
     private Contato contato;
     private Endereco endereco;
     private Evento evento;
     private Necessidade necessidade;
+    private RegistroControleUser controleUser;
+    private NecessidadeDao necessidadeDao;
 
     public InstituicaoControl() {
-        
+
     }
-    
-    public void retornarUser(){
-    
+
+    public void retornarUser() {
+
         try {
             RegistroControleUser registroControleUser = new RegistroControleUser();
             user = registroControleUser.resgatarUsuarioSpring();
@@ -123,20 +124,19 @@ public class InstituicaoControl implements Serializable {
     public String cadastrarNecessidade() {
 
         session = HibernateUtil.abreConexao();
-        
-        retornarUser();
 
         try {
 
-            instituicaoDao = new InstituicaoDaoImpl();
+            // instituicaoDao = new InstituicaoDaoImpl();
+            necessidadeDao = new NecessidadeDaoImpl();
+            instituicao.setNecessidades(necessidades);
 
-            for (Necessidade necessidade : necessidades) {
+            for (Necessidade necessidadeFor : necessidades) {
 
-                necessidade.setInstituicao(instituicao);
-                necessidade.setStatus(true);
-
+                necessidadeFor.setInstituicao(instituicao);
+                necessidadeDao.salvarOuAlterar(necessidadeFor, session);
             }
-            instituicaoDao.salvarOuAlterar(instituicao, session);
+            // instituicaoDao.salvarOuAlterar(instituicao, session);
 
         } catch (RuntimeException e) {
 
@@ -154,18 +154,46 @@ public class InstituicaoControl implements Serializable {
 
     public void addNecessidade() {
 
+        usuarioLogadoSpring();
+
+        if (necessidades == null) {
+            necessidades = new ArrayList<>();
+        }
+
         necessidades.add(necessidade);
 
         necessidade = new Necessidade();
 
     }
-    
+
+    private void usuarioLogadoSpring() {
+        if (user == null) {
+
+            controleUser = new RegistroControleUser();
+            user = controleUser.resgatarUsuarioSpring();
+            instituicao = user.getInstituicao();
+
+            
+
+        }
+    }
+
+    public String paginaNecessidade() {
+
+        usuarioLogadoSpring();
+        necessidadeDao = new NecessidadeDaoImpl();
+        session = HibernateUtil.abreConexao();
+        necessidades = necessidadeDao.pesquisarPorInstituicao(instituicao, session);
+        session.close();
+        return "/user/cadastro_necessidades.faces";
+    }
+
     public String cadastraContatos() {
-        
+
         session = HibernateUtil.abreConexao();
 
         retornarUser();
-        
+
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
@@ -197,7 +225,7 @@ public class InstituicaoControl implements Serializable {
     public void cadastraTel() {
 
         retornarUser();
-        
+
         contatos.add(contato);
 
         contato = new Contato();
@@ -344,9 +372,8 @@ public class InstituicaoControl implements Serializable {
             user = new User();
 
         }
-        
+
         // TODO VERIFICAR USUARIO LOGADO
-        
         return user;
     }
 
