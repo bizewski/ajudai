@@ -49,6 +49,7 @@ public class InstituicaoControl implements Serializable {
 
     }
 
+    //retorna usuario logado e cria listas 
     public void retornarUser() {
 
         try {
@@ -84,6 +85,7 @@ public class InstituicaoControl implements Serializable {
         }
     }
 
+    //cria conta institucional e usuario - SEMPRE PERFIL 1
     public String cadastrarInstituicao() {
 
         session = HibernateUtil.abreConexao();
@@ -117,17 +119,17 @@ public class InstituicaoControl implements Serializable {
 
         }
 
-        return "/user/index.faces";
+        return "/user/dash.faces";
 
     }
-
+    
+    //cadastro de necessidades 
     public String cadastrarNecessidade() {
 
         session = HibernateUtil.abreConexao();
 
         try {
 
-            // instituicaoDao = new InstituicaoDaoImpl();
             necessidadeDao = new NecessidadeDaoImpl();
             instituicao.setNecessidades(necessidades);
 
@@ -136,7 +138,6 @@ public class InstituicaoControl implements Serializable {
                 necessidadeFor.setInstituicao(instituicao);
                 necessidadeDao.salvarOuAlterar(necessidadeFor, session);
             }
-            // instituicaoDao.salvarOuAlterar(instituicao, session);
 
         } catch (RuntimeException e) {
 
@@ -152,6 +153,7 @@ public class InstituicaoControl implements Serializable {
         return "/user/cadastro_necessidades.faces";
     }
 
+    //add necessidade na tabela 
     public void addNecessidade() {
 
         usuarioLogadoSpring();
@@ -166,6 +168,7 @@ public class InstituicaoControl implements Serializable {
 
     }
 
+    //retorna usuario logado 
     private void usuarioLogadoSpring() {
         if (user == null) {
 
@@ -173,11 +176,10 @@ public class InstituicaoControl implements Serializable {
             user = controleUser.resgatarUsuarioSpring();
             instituicao = user.getInstituicao();
 
-            
-
         }
     }
-
+    
+    //atualiza tabela de necessidades 
     public String paginaNecessidade() {
 
         usuarioLogadoSpring();
@@ -187,25 +189,24 @@ public class InstituicaoControl implements Serializable {
         session.close();
         return "/user/cadastro_necessidades.faces";
     }
-
+    
+    //cadastro de contatos 
     public String cadastraContatos() {
 
         session = HibernateUtil.abreConexao();
 
-        retornarUser();
+        //cadastraTel();
 
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
 
-//            instituicao.setContatos(contatos);
-            for (Contato contato : contatos) {
+            instituicao.setContatos(contatos);
+            for (Contato contatoFor : contatos) {
 
-                contato.setInstituicao(instituicao);
-
+                contatoFor.setInstituicao(instituicao);
+                instituicaoDao.salvarOuAlterar(instituicao, session);
             }
-
-            instituicaoDao.salvarOuAlterar(instituicao, session);
 
         } catch (RuntimeException e) {
 
@@ -222,31 +223,55 @@ public class InstituicaoControl implements Serializable {
 
     }
 
+    // add telefone na tabela 
     public void cadastraTel() {
 
-        retornarUser();
+        usuarioLogadoSpring();
 
-        contatos.add(contato);
-
-        contato = new Contato();
+       if(contatos == null){
+       
+           contatos = new ArrayList<>();
+          
+       }
+       
+       contatos.add(contato);
+       contato = new Contato();
 
     }
 
+    public void addEndereco() {
+
+        usuarioLogadoSpring();
+
+        if (enderecos == null) {
+            enderecos = new ArrayList<>();
+        }
+
+        enderecos.add(endereco);
+
+        endereco = new Endereco();
+
+    }
+    
+    //cadastro de endereco 
     public String cadastraEnderecos() {
 
         session = HibernateUtil.abreConexao();
 
+        //addEndereco();
+        
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
 
-            for (Endereco endereco : enderecos) {
+            instituicao.setEnderecos(enderecos);
+            
+            for (Endereco enderecoFor : enderecos) {
 
-                endereco.setInstituicao(instituicao);
-
+                enderecoFor.setInstituicao(instituicao);
+                
+                instituicaoDao.salvarOuAlterar(instituicao, session);
             }
-
-            instituicaoDao.salvarOuAlterar(instituicao, session);
 
         } catch (RuntimeException e) {
 
@@ -262,22 +287,40 @@ public class InstituicaoControl implements Serializable {
         return "/user/cadastro_enderecos.faces";
 
     }
+    
+    //add eventos
+    public void addEventos() {
 
+        usuarioLogadoSpring();
+
+        if (eventos == null) {
+            eventos = new ArrayList<>();
+        }
+
+        eventos.add(evento);
+
+        evento = new Evento();
+
+    }
+    
+    //cadastro de eventos 
     public String cadastraEventos() {
 
         session = HibernateUtil.abreConexao();
 
+        addEventos();
+        
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
+            
+            instituicao.setEventos(eventos);
 
-            for (Evento evento : eventos) {
+            for (Evento eventoFor : eventos) {
 
-                evento.setInstituicao(instituicao);
-
+                eventoFor.setInstituicao(instituicao);
+                instituicaoDao.salvarOuAlterar(instituicao, session);
             }
-
-            instituicaoDao.salvarOuAlterar(instituicao, session);
 
         } catch (RuntimeException e) {
 
@@ -289,7 +332,6 @@ public class InstituicaoControl implements Serializable {
             session.close();
 
         }
-
         return "/user/cadastro_eventos.faces";
 
     }
