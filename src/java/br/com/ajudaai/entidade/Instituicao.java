@@ -29,10 +29,7 @@ public class Instituicao implements Serializable {
     
     @Column(nullable = false)
     private String cnpj;
-    
-    @Column(nullable = false)
-    private String registroConselho;
-    
+  
     @Column(nullable = false)
     private String categoria;
     
@@ -210,14 +207,6 @@ public class Instituicao implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public String getRegistroConselho() {
-        return registroConselho;
-    }
-
-    public void setRegistroConselho(String registroConselho) {
-        this.registroConselho = registroConselho;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;

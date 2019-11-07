@@ -71,9 +71,12 @@
 
                 <!-- Nav Item - Tables -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="cadastro_necessidades.faces">
+<!--                    <a class="nav-link" href="cadastro_necessidades.faces">
                         <i class="fas fa-fw"></i>
-                        <span>Cadastro de Necessidades</span></a>
+                        <span>Cadastro de Necessidades</span></a>-->
+                    <h:form>
+                        <h:commandLink class="fas fa-fw nav-link" action="#{instituicaoC.paginaNecessidade()}" value="Cadastro de Necessidades" />
+                    </h:form>
                 </li>
 
                 <!-- Nav Item - Tables -->
@@ -129,30 +132,30 @@
                                 </div>
                                 <div class="form-group">
                                     <p:selectOneRadio value="#{instituicaoC.necessidade.status}" id="status" >
-                                        <f:selectItem itemValue="0" itemLabel="Desativar" />
-                                        <f:selectItem itemValue="1" itemLabel="Ativar" />
+                                        <f:selectItem itemValue="false" itemLabel="Desativar" />
+                                        <f:selectItem itemValue="true" itemLabel="Ativar" />
                                     </p:selectOneRadio>
 
                                 </div>
 
                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                            <br/>
-                                            <p:commandButton action="#{instituicaoC.addNecessidade()}" process="descricao prioridade status @this" 
-                                                             update="tabelaNecessidades descricao prioridade status" id="inserir" class="btn btn-primary btn-user btn-block" 
-                                                             title="Add Necessidades na Lista" />
+                                    <br/>
+                                    <p:commandButton action="#{instituicaoC.addNecessidade()}" process="descricao prioridade status @this" 
+                                                     update="@form" id="inserir" class="btn btn-primary btn-user btn-block" 
+                                                     title="Add Necessidades na Lista" />
 
-                                        </div>
+                                </div>
                                 <br />
-                                <p:dataTable var="contato" value="#{instituicaoC.necessidades}" id="tabelaNecessidades"
-                                             emptyMessage="Lista de Necessidades vazia!">
+                                <p:dataTable id="tabelaNecessidades" var="necessidade" value="#{instituicaoC.necessidades}" 
+                                             emptyMessage="Lista de Necessidades vazia!" >
                                     <p:column headerText="Descrição">
                                         <h:outputText value="#{necessidade.descricao}" />
                                     </p:column>
                                     <p:column headerText="Prioridade">
-                                        <h:outputText value="#{necessiade.prioridade}" />
+                                        <h:outputText value="#{necessidade.prioridade}" />
                                     </p:column>
                                     <p:column headerText="Status">
-                                        <h:outputText value="#{necessiade.status}" />
+                                        <h:outputText value="#{necessidade.status?'Ativo':'Desabilitado'}" />
                                     </p:column>
                                 </p:dataTable>
                                 <br />
