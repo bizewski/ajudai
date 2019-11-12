@@ -24,6 +24,7 @@ import org.hibernate.Session;
 
 @ManagedBean(name = "instituicaoC")
 @ViewScoped
+//@SessionScoped
 public class InstituicaoControl implements Serializable {
 
     private List<Instituicao> instituicoes;
