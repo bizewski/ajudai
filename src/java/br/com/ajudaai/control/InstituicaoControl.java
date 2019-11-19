@@ -19,12 +19,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.Session;
 
 @ManagedBean(name = "instituicaoC")
-@ViewScoped
-//@SessionScoped
+//@ViewScoped
+@SessionScoped
 public class InstituicaoControl implements Serializable {
 
     private List<Instituicao> instituicoes;
@@ -47,7 +47,7 @@ public class InstituicaoControl implements Serializable {
     private NecessidadeDao necessidadeDao;
 
     public InstituicaoControl() {
-
+        usuarioLogadoSpring();
     }
 
     //retorna usuario logado e cria listas 
@@ -346,6 +346,12 @@ public class InstituicaoControl implements Serializable {
     }
 
     public List<Endereco> getEnderecos() {
+        if(enderecos == null){
+            instituicaoDao = new InstituicaoDaoImpl();
+            session = HibernateUtil.abreConexao();
+            enderecos = instituicaoDao.pesquisarEnderecoInstituicaoLogado(instituicao.getId(), session);
+            session.close();
+        }
         return enderecos;
     }
 
@@ -355,6 +361,13 @@ public class InstituicaoControl implements Serializable {
 
     public List<Contato> getContatos() {
 
+        if(contatos == null){
+            instituicaoDao = new InstituicaoDaoImpl();
+            session = HibernateUtil.abreConexao();
+            contatos = instituicaoDao.pesquisarContatoInstituicaoLogado(instituicao.getId(), session);
+            session.close();
+        }
+        
         return contatos;
 
     }
@@ -364,6 +377,14 @@ public class InstituicaoControl implements Serializable {
     }
 
     public List<Evento> getEventos() {
+        
+        if(eventos == null){
+            instituicaoDao = new InstituicaoDaoImpl();
+            session = HibernateUtil.abreConexao();
+            eventos = instituicaoDao.pesquisarEventoInstituicaoLogado(instituicao.getId(), session);
+            session.close();
+        }
+        
         return eventos;
     }
 
@@ -380,6 +401,13 @@ public class InstituicaoControl implements Serializable {
     }
 
     public List<Necessidade> getNecessidades() {
+       if(necessidades == null){
+           instituicaoDao = new InstituicaoDaoImpl();
+           session = HibernateUtil.abreConexao();
+           necessidades = instituicaoDao.pesquisarNecessidadeInstituicaoLogado(instituicao.getId(), session);
+           session.close();
+       }
+        
         return necessidades;
     }
 

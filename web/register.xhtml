@@ -40,30 +40,35 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Criar Conta Institucional!</h1>
                                 </div>
+
                                 <h:form class="user">
 
+                                    <p:messages closable="true">
+                                        <p:autoUpdate />
+                                    </p:messages>  
+
                                     <div class="form-group">
-                                        <p:inputText class="form-control form-control-user" id="exampleInputName" placeholder="Nome da Instituição" value="#{instituicaoC.instituicao.nome}" />
+                                        <p:inputText class="form-control form-control-user" id="exampleInputName" placeholder="Nome da Instituição" value="#{instituicaoCadastroC.instituicao.nome}" />
                                     </div>
                                     <div class="form-group">
-                                        <p:inputText class="form-control form-control-user" id="exampleInputCnpj" placeholder="CNPJ" value="#{instituicaoC.instituicao.cnpj}" />
+                                        <p:inputText class="form-control form-control-user" id="exampleInputCnpj" placeholder="CNPJ" value="#{instituicaoCadastroC.instituicao.cnpj}" />
                                     </div>
                                     <div class="form-group">
-                                        <p:inputText class="form-control form-control-user" id="exampleInputEmail" placeholder="E-mail" value="#{instituicaoC.instituicao.email}" />
+                                        <p:inputText class="form-control form-control-user" id="exampleInputEmail" placeholder="E-mail" value="#{instituicaoCadastroC.instituicao.email}" />
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <p:inputText type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Senha" value="#{instituicaoC.user.senha}" />
+                                            <p:inputText type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Senha" value="#{instituicaoCadastroC.user.senha}" />
                                         </div>
                                         <div class="col-sm-6">
-                                            <p:inputText type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Confirmar Senha" value="#{instituicaoC.user.senha}" />
+                                            <p:inputText type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Confirmar Senha" value="#{instituicaoCadastroC.user.senha}" />
                                         </div>
 
                                     </div>
 
                                     <div class="form-group">
                                         <center>
-                                            <p:selectOneRadio value="#{instituicaoC.instituicao.categoria}">
+                                            <p:selectOneRadio value="#{instituicaoCadastroC.instituicao.categoria}">
                                                 <f:selectItem itemValue="ILPI" itemLabel="ILPI" />
                                                 <f:selectItem itemValue="Casa Lar" itemLabel="Casa Lar" />
                                             </p:selectOneRadio>
@@ -71,7 +76,7 @@
                                         </center>
                                     </div>
 
-                                    <p:commandButton action="#{instituicaoC.cadastrarInstituicao()}" class="btn btn-primary btn-user btn-block" title="Criar Conta" />
+                                    <p:commandButton action="#{instituicaoCadastroC.cadastrarInstituicao()}" class="btn btn-primary btn-user btn-block" title="Criar Conta" />
 
                                     <hr />
 

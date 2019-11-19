@@ -136,7 +136,7 @@
                                     <div class="col-sm-6">
                                         <p:inputText type="text" class="form-control form-control-user" id="uf" 
                                                      placeholder="Estado" value="#{instituicaoC.endereco.estado}" required="true"/>
-                                        <p:message for="uf" display="uf" />
+<!--                                        <p:message for="uf" display="uf" />-->
                                     </div>
                                 </div>
 
@@ -189,7 +189,8 @@
                                 <br />
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p:commandButton action="#{instituicaoC.cadastraEnderecos()}" class="btn btn-primary btn-user btn-block" title="Salvar" id="salvar" />
+                                        <p:commandButton action="#{instituicaoC.cadastraEnderecos()}"  process="@this" class="btn btn-primary btn-user btn-block"
+                                                         title="Salvar" id="salvar" />
 
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">

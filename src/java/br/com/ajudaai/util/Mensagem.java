@@ -10,7 +10,7 @@ public class Mensagem {
     }
      
     public static void warn() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Watch out for PrimeFaces."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Instituição não registrada junto ao Conselho de Assistência Social. Em breve, entraremos em contato!"));
     }
      
     public static void erro(String msg) {
@@ -20,5 +20,6 @@ public class Mensagem {
     public static void fatal() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal!", "System Error"));
     }
+    
 }
     
