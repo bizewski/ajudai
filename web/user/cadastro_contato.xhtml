@@ -143,7 +143,7 @@
 
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p:inputMask  mask="(99) 99999-9999" class="form-control form-control-user" id="tel" 
-                                                         placeholder="Telefone" value="#{instituicaoC.contato.telefone}" />
+                                                          placeholder="Telefone" value="#{instituicaoC.contato.telefone}" />
 
                                         </div>
 
@@ -170,6 +170,10 @@
                                         </p:column>
                                         <p:column headerText="WhatsApp">
                                             <h:outputText value="#{contato.whatsapp}" />
+                                        </p:column>
+                                        <p:column headerText="Ação">
+                                            <p:commandLink value="Editar" actionListener="#{instituicaoC.carregarContato(contato)}" update="@form">
+                                            </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
 

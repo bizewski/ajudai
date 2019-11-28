@@ -25,5 +25,7 @@ public interface InstituicaoDao extends BaseDao<Instituicao, Long>{
     
     List<Evento> pesquisarEventoInstituicaoLogado(Long idInstituicao, Session session) throws HibernateException;
     
+    List<Instituicao> todasCadastradas(Session session) throws HibernateException;
+    
 }
 

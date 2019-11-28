@@ -165,6 +165,10 @@
                                     <p:column headerText="Descrição">
                                         <h:outputText value="#{evento.descricao}" />
                                     </p:column>
+                                     <p:column headerText="Ação">
+                                        <p:commandLink value="Editar" actionListener="#{instituicaoC.carregarEvento(evento)}" update="@form">
+                                        </p:commandLink>
+                                    </p:column>
                                 </p:dataTable>
                                 <br />
                                 <div class="form-group row">

@@ -23,14 +23,23 @@ public class InstituicaoDaoImpl extends BaseDaoImpl<Instituicao, Long> implement
     @Override
     public Instituicao listarNecessidadesAtivas(Long id, Session session) throws HibernateException {
 
-        Query query = session.createQuery("select distinct(i) from Instituicao i join fetch i.necessidades n "
-                + "where n.status = true and i.id = :id");
+//        Query 
+        Query query = session.createQuery("select distinct(i) from Instituicao i left join fetch i.necessidades n "
+                + "where i.id = :id");
 
         query.setParameter("id", id);
-
-        return (Instituicao) query.uniqueResult();
+        Instituicao instituicao = (Instituicao) query.uniqueResult();
+        if (instituicao.getNecessidades().isEmpty()) {
+            return instituicao;
+        } else {
+            query = session.createQuery("select distinct(i) from Instituicao i left join fetch i.necessidades n "
+                    + "where n.status = true and i.id = :id");
+            query.setParameter("id", id);
+            return (Instituicao) query.uniqueResult();
+        }
 
     }
+
 
     @Override
     public Instituicao pesquisarPorNome(String nome, Session session) throws HibernateException {
@@ -81,6 +90,11 @@ public class InstituicaoDaoImpl extends BaseDaoImpl<Instituicao, Long> implement
         consulta.setParameter("id", idInstituicao);
         return consulta.list();
     }
-    
+
+    @Override
+    public List<Instituicao> todasCadastradas(Session session) throws HibernateException {
+        Query consulta = session.createQuery("from Instituicao i join fetch i.midias");
+        return consulta.list();
+    }
 
 }

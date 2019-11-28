@@ -13,9 +13,7 @@
         <intercept-url pattern="/resources/**" access="permitAll"/>
         
         <form-login login-page="/login.faces" authentication-failure-url="/login.faces?erro=true"/>
-        
-        <!--<logout logout-success-url="/login.faces" logout-url="/logout" />-->
-        <logout invalidate-session="true" logout-success-url="/login.faces" logout-url="/logout" delete-cookies="JSESSIONID"/>
+        <logout invalidate-session="true" logout-success-url="/index.faces" logout-url="/logout" delete-cookies="JSESSIONID"/>
         
     </http>
      

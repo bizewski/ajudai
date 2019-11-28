@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 @ManagedBean(name = "instituicaoC")
@@ -33,6 +34,7 @@ public class InstituicaoControl implements Serializable {
     private List<Evento> eventos;
     private List<Midia> midias;
     private List<Necessidade> necessidades;
+    private List<Necessidade> necessidadesAtivas;
     private List<Comentario> comentarios;
     private InstituicaoDao instituicaoDao;
     private Instituicao instituicao;
@@ -123,7 +125,7 @@ public class InstituicaoControl implements Serializable {
         return "/user/dash.faces";
 
     }
-    
+
     //cadastro de necessidades 
     public String cadastrarNecessidade() {
 
@@ -169,6 +171,13 @@ public class InstituicaoControl implements Serializable {
 
     }
 
+    //edita necessidade
+    public void carregarNecessidade(Necessidade n) {
+        this.necessidade = n;
+        necessidades.remove(n);
+
+    }
+
     //retorna usuario logado 
     private void usuarioLogadoSpring() {
         if (user == null) {
@@ -179,7 +188,7 @@ public class InstituicaoControl implements Serializable {
 
         }
     }
-    
+
     //atualiza tabela de necessidades 
     public String paginaNecessidade() {
 
@@ -190,14 +199,13 @@ public class InstituicaoControl implements Serializable {
         session.close();
         return "/user/cadastro_necessidades.faces";
     }
-    
+
     //cadastro de contatos 
     public String cadastraContatos() {
 
         session = HibernateUtil.abreConexao();
 
         //cadastraTel();
-
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
@@ -229,17 +237,24 @@ public class InstituicaoControl implements Serializable {
 
         usuarioLogadoSpring();
 
-       if(contatos == null){
-       
-           contatos = new ArrayList<>();
-          
-       }
-       
-       contatos.add(contato);
-       contato = new Contato();
+        if (contatos == null) {
+
+            contatos = new ArrayList<>();
+
+        }
+
+        contatos.add(contato);
+        contato = new Contato();
 
     }
 
+    //edita contatos
+    public void carregarContato(Contato c) {
+        this.contato = c;
+        contatos.remove(c);
+    }
+
+    // add endereco na tabela
     public void addEndereco() {
 
         usuarioLogadoSpring();
@@ -253,24 +268,23 @@ public class InstituicaoControl implements Serializable {
         endereco = new Endereco();
 
     }
-    
+
     //cadastro de endereco 
     public String cadastraEnderecos() {
 
         session = HibernateUtil.abreConexao();
 
         //addEndereco();
-        
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
 
             instituicao.setEnderecos(enderecos);
-            
+
             for (Endereco enderecoFor : enderecos) {
 
                 enderecoFor.setInstituicao(instituicao);
-                
+
                 instituicaoDao.salvarOuAlterar(instituicao, session);
             }
 
@@ -288,7 +302,13 @@ public class InstituicaoControl implements Serializable {
         return "/user/cadastro_enderecos.faces";
 
     }
-    
+
+    //edita endereco
+    public void carregarEndereco(Endereco e) {
+        this.endereco = e;
+        enderecos.remove(e);
+    }
+
     //add eventos
     public void addEventos() {
 
@@ -303,18 +323,18 @@ public class InstituicaoControl implements Serializable {
         evento = new Evento();
 
     }
-    
+
     //cadastro de eventos 
     public String cadastraEventos() {
 
         session = HibernateUtil.abreConexao();
 
         addEventos();
-        
+
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
-            
+
             instituicao.setEventos(eventos);
 
             for (Evento eventoFor : eventos) {
@@ -337,6 +357,12 @@ public class InstituicaoControl implements Serializable {
 
     }
 
+    //edita evento
+    public void carregarEvento(Evento e) {
+        this.evento = e;
+        eventos.remove(e);
+    }
+
     public List<Instituicao> getInstituicoes() {
         return instituicoes;
     }
@@ -346,7 +372,7 @@ public class InstituicaoControl implements Serializable {
     }
 
     public List<Endereco> getEnderecos() {
-        if(enderecos == null){
+        if (enderecos == null) {
             instituicaoDao = new InstituicaoDaoImpl();
             session = HibernateUtil.abreConexao();
             enderecos = instituicaoDao.pesquisarEnderecoInstituicaoLogado(instituicao.getId(), session);
@@ -361,13 +387,13 @@ public class InstituicaoControl implements Serializable {
 
     public List<Contato> getContatos() {
 
-        if(contatos == null){
+        if (contatos == null) {
             instituicaoDao = new InstituicaoDaoImpl();
             session = HibernateUtil.abreConexao();
             contatos = instituicaoDao.pesquisarContatoInstituicaoLogado(instituicao.getId(), session);
             session.close();
         }
-        
+
         return contatos;
 
     }
@@ -377,14 +403,14 @@ public class InstituicaoControl implements Serializable {
     }
 
     public List<Evento> getEventos() {
-        
-        if(eventos == null){
+
+        if (eventos == null) {
             instituicaoDao = new InstituicaoDaoImpl();
             session = HibernateUtil.abreConexao();
             eventos = instituicaoDao.pesquisarEventoInstituicaoLogado(instituicao.getId(), session);
             session.close();
         }
-        
+
         return eventos;
     }
 
@@ -401,13 +427,13 @@ public class InstituicaoControl implements Serializable {
     }
 
     public List<Necessidade> getNecessidades() {
-       if(necessidades == null){
-           instituicaoDao = new InstituicaoDaoImpl();
-           session = HibernateUtil.abreConexao();
-           necessidades = instituicaoDao.pesquisarNecessidadeInstituicaoLogado(instituicao.getId(), session);
-           session.close();
-       }
-        
+        if (necessidades == null) {
+            instituicaoDao = new InstituicaoDaoImpl();
+            session = HibernateUtil.abreConexao();
+            necessidades = instituicaoDao.pesquisarNecessidadeInstituicaoLogado(instituicao.getId(), session);
+            session.close();
+        }
+
         return necessidades;
     }
 
@@ -525,6 +551,30 @@ public class InstituicaoControl implements Serializable {
 
     public void setNecessidade(Necessidade necessidade) {
         this.necessidade = necessidade;
+    }
+
+    public List<Necessidade> getNecessidadesAtivas() {
+        if (necessidadesAtivas == null) {
+             necessidadesAtivas = new ArrayList<>();
+            try {
+                session = HibernateUtil.abreConexao();
+                instituicaoDao = new InstituicaoDaoImpl();
+                instituicao = instituicaoDao.listarNecessidadesAtivas(instituicao.getId(), session);
+                if (!instituicao.getNecessidades().isEmpty()) {
+                    necessidadesAtivas = instituicao.getNecessidades();
+                }
+
+            } catch (HibernateException hibernateException) {
+                System.out.println("Erro ao pesquisar" + hibernateException.getMessage());
+            } finally {
+                session.close();
+            }
+        }
+        return necessidadesAtivas;
+    }
+
+    public void setNecessidadesAtivas(List<Necessidade> necessidadesAtivas) {
+        this.necessidadesAtivas = necessidadesAtivas;
     }
 
 }

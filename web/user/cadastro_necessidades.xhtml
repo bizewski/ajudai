@@ -150,6 +150,10 @@
                                     <p:column headerText="Status">
                                         <h:outputText value="#{necessidade.status?'Ativo':'Desabilitado'}" />
                                     </p:column>
+                                    <p:column headerText="Ação">
+                                        <p:commandLink value="Editar" actionListener="#{instituicaoC.carregarNecessidade(necessidade)}" update="@form">
+                                        </p:commandLink>
+                                    </p:column>
                                 </p:dataTable>
                                 <br />
                                 <!-- BOTOES -->

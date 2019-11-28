@@ -13,10 +13,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 @ManagedBean(name = "instituicaoCadastroC")
@@ -30,6 +32,7 @@ public class InstituicaoCadastroControl implements Serializable {
     private User user;
     private Perfil perfil;
     private Contato contato;
+    private List<Instituicao> instituicaoMidias;
 
     public InstituicaoCadastroControl() {
 
@@ -73,10 +76,10 @@ public class InstituicaoCadastroControl implements Serializable {
 
             instituicaoDao.salvarOuAlterar(instituicao, session);
 
+            Mensagem.sucesso("Instituição " + instituicao.getNome());
+
             instituicao = null;
             user = null;
-
-            Mensagem.sucesso("Instituição " + instituicao.getNome());
 
             System.out.println("Instituição cadastrada com sucesso");
 
@@ -93,13 +96,13 @@ public class InstituicaoCadastroControl implements Serializable {
 
         String pagina = "/user/dash.faces";
         String msg = "Salvo com sucesso!";
-        
+
         if (!contem) {
             msg = "Instituição não registrada junto ao Conselho de Assistência Social. Em breve, entraremos em contato!";
             pagina = "register.faces";
 
         }
-        
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, ""));
 
         return pagina;
@@ -161,4 +164,22 @@ public class InstituicaoCadastroControl implements Serializable {
         return contato;
     }
 
+    public List<Instituicao> getInstituicaoMidias() {
+        if (instituicaoMidias == null) {
+
+            try {
+                session = HibernateUtil.abreConexao();
+                instituicaoDao = new InstituicaoDaoImpl();
+                instituicaoMidias = instituicaoDao.todasCadastradas(session);
+                
+            } catch (HibernateException e) {
+                
+                System.out.println("Erro" + e.getMessage());
+                
+            }finally{
+                session.close();
+            }
+        }
+        return instituicaoMidias;
+    }
 }

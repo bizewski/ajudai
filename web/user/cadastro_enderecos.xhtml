@@ -185,6 +185,10 @@
                                     <p:column headerText="Complemento">
                                         <h:outputText value="#{endereco.complemento}" />
                                     </p:column>
+                                      <p:column headerText="Ação">
+                                        <p:commandLink value="Editar" actionListener="#{instituicaoC.carregarEndereco(endereco)}" update="@form">
+                                        </p:commandLink>
+                                    </p:column>
                                 </p:dataTable>
                                 <br />
                                 <div class="form-group row">
