@@ -116,6 +116,10 @@
                     <div class="col-lg-auto">
                         <div class="p-5">
 
+                            <p:messages id="messages"  closable="true">
+                                <p:autoUpdate />
+                            </p:messages>
+                            
                             <h:form id="form" class="user">
 
                                 <div class="form-group row">
@@ -143,7 +147,7 @@
 
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <p:inputMask  mask="(99) 99999-9999" class="form-control form-control-user" id="tel" 
-                                                          placeholder="Telefone" value="#{instituicaoC.contato.telefone}" />
+                                                          placeholder="Telefone" value="#{instituicaoC.contato.telefone}" required="true" requiredMessage="Campo Telefone é obrigatório!" />
 
                                         </div>
 
@@ -183,7 +187,7 @@
                                 <!-- BOTOES -->
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p:commandButton action="#{instituicaoC.cadastraContatos()}" class="btn btn-primary btn-user btn-block" title="Salvar" />
+                                        <p:commandButton action="#{instituicaoC.cadastraContatos()}" class="btn btn-primary btn-user btn-block" title="Salvar" process="@this" />
 
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">

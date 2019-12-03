@@ -23,6 +23,9 @@ public class Comentario implements Serializable {
     
     @Column(nullable = false)
     private String comentario;
+    
+    @Column(nullable = false)
+    private Integer estrelas;
    
     @ManyToOne
     @JoinColumn(name = "idInstituicao")

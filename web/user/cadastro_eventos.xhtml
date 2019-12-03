@@ -82,7 +82,7 @@
                 </li>
 
                 <!-- Nav Item - Tables -->
-             <li class="nav-item active">
+                <li class="nav-item active">
                     <a class="nav-link" href="cadastro_imagens.faces">
                         <i class="fas fa-fw"></i>
                         <span>Galeria de Fotos</span></a>
@@ -113,40 +113,45 @@
                     <div class="col-lg-auto">
                         <div class="p-5">
 
+                            <p:messages id="messages"  closable="true">
+                                <p:autoUpdate />
+                            </p:messages>
                             <h:form class="user">
-
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p:inputText type="text" class="form-control form-control-user" id="nome" 
-                                                     placeholder="Nome do Evento" value="#{instituicaoC.evento.nome}" />
+                                <h:panelGroup id="cadastro_eventos" >
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <p:inputText type="text" class="form-control form-control-user" id="nome" 
+                                                         placeholder="Nome do Evento" value="#{instituicaoC.evento.nome}" required="true" requiredMessage="Campo Nome é obrigatório!" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p:inputText type="date" class="form-control form-control-user" id="dataInicio" 
+                                                         placeholder="Data de Início" value="#{instituicaoC.evento.dataInicio}" required="true" requiredMessage="Campo Data Início é obrigatório!" />
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <p:inputText type="date" class="form-control form-control-user" id="dataInicio" 
-                                                     placeholder="Data de Início" value="#{instituicaoC.evento.dataInicio}" />
+
+                                    <div class="form-group row">
+
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <p:inputText type="date" class="form-control form-control-user" id="dataFim" 
+                                                         placeholder="Data de fim" value="#{instituicaoC.evento.dataFim}" required="true" requiredMessage="Campo Data Fim é obrigatório!"/>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group row">
-
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p:inputText type="date" class="form-control form-control-user" id="dataFim" 
-                                                     placeholder="Data de fim" value="#{instituicaoC.evento.dataFim}"/>
+                                    <div class="form-group">
+                                        <p:inputText type="text" class="form-control form-control-user" id="descricao" 
+                                                     placeholder="Descrição" value="#{instituicaoC.evento.descricao}" />
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <p:inputText type="text" class="form-control form-control-user" id="descricao" 
-                                                 placeholder="Descrição" value="#{instituicaoC.evento.descricao}" />
-                                </div>
+                                </h:panelGroup>
                                 <!-- BOTOES -->
 
                                 <hr />
 
                                 <div class="col-sm-12 mb-3 mb-sm-0">
                                     <br/>
-                                    <p:commandButton action="#{instituicaoC.addEventos()}" process="nome dataInicio dataFim descricao @this" 
+                                    <p:commandButton action="#{instituicaoC.addEventos()}"
                                                      update="@form" id="inserir" class="btn btn-primary btn-user btn-block" 
-                                                     title="Add Eventos na Lista" />
+                                                     title="Add Eventos na Lista" process="@this cadastro_eventos" />
                                 </div>
                                 <br />
 
@@ -165,7 +170,7 @@
                                     <p:column headerText="Descrição">
                                         <h:outputText value="#{evento.descricao}" />
                                     </p:column>
-                                     <p:column headerText="Ação">
+                                    <p:column headerText="Ação">
                                         <p:commandLink value="Editar" actionListener="#{instituicaoC.carregarEvento(evento)}" update="@form">
                                         </p:commandLink>
                                     </p:column>
@@ -173,7 +178,7 @@
                                 <br />
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p:commandButton action="#{instituicaoC.cadastraEventos()}" class="btn btn-primary btn-user btn-block" title="Salvar" />
+                                        <p:commandButton action="#{instituicaoC.cadastraEventos()}" class="btn btn-primary btn-user btn-block" title="Salvar" process="@this" />
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <p:commandButton ajax="true" immediate="true" type="reset" class="btn btn-primary btn-user btn-block" title="Cancelar" />

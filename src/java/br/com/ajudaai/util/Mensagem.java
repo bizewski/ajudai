@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 public class Mensagem { 
     
     public static void sucesso(String msg) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", msg + " cadastrado com sucesso!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg + " cadastrado com sucesso!", "" ));
     }
      
     public static void warn() {

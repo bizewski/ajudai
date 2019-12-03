@@ -110,21 +110,24 @@
                     <div class="col-lg-auto">
                         <div class="p-5">
 
+                            <p:messages id="messages"  closable="true">
+                                <p:autoUpdate />
+                            </p:messages>
                             <h:form class="user">                
                                 <div class="form-group">
                                     <p:inputText class="form-control form-control-user" id="descricao"
-                                                 placeholder="Breve descriçao" value="#{instituicaoC.necessidade.descricao}" />
+                                                 placeholder="Breve descriçao" value="#{instituicaoC.necessidade.descricao}" required="true" requiredMessage="Campo Descrição é obrigatório!" />
                                 </div>
 
                                 <div class="form-group">
-                                    <p:selectOneRadio value="#{instituicaoC.necessidade.prioridade}" id="prioridade" >
+                                    <p:selectOneRadio value="#{instituicaoC.necessidade.prioridade}" id="prioridade" rendered="true" requiredMessage="Campo Prioridade é obrigatório!" >
                                         <f:selectItem itemValue="Urgente" itemLabel="Urgente" />
                                         <f:selectItem itemValue="Constante" itemLabel="Constante" />
                                     </p:selectOneRadio>
 
                                 </div>
                                 <div class="form-group">
-                                    <p:selectOneRadio value="#{instituicaoC.necessidade.status}" id="status" >
+                                    <p:selectOneRadio value="#{instituicaoC.necessidade.status}" id="status" required="true" requiredMessage="Campo Status é obrigatório!" >
                                         <f:selectItem itemValue="false" itemLabel="Desativar" />
                                         <f:selectItem itemValue="true" itemLabel="Ativar" />
                                     </p:selectOneRadio>
@@ -159,7 +162,7 @@
                                 <!-- BOTOES -->
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p:commandButton action="#{instituicaoC.cadastrarNecessidade()}" class="btn btn-primary btn-user btn-block" title="Salvar todas Alterações" />
+                                        <p:commandButton action="#{instituicaoC.cadastrarNecessidade()}" class="btn btn-primary btn-user btn-block" title="Salvar" process="@this" />
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <p:commandButton ajax="true" immediate="true" type="reset" class="btn btn-primary btn-user btn-block" title="Cancelar" />

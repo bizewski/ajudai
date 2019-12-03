@@ -94,7 +94,7 @@ public class InstituicaoCadastroControl implements Serializable {
 
         }
 
-        String pagina = "/user/dash.faces";
+        String pagina = "/user/dash.faces?faces-redirect=true";
         String msg = "Salvo com sucesso!";
 
         if (!contem) {

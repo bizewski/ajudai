@@ -14,6 +14,7 @@ import br.com.ajudaai.entidade.Midia;
 import br.com.ajudaai.entidade.Necessidade;
 import br.com.ajudaai.entidade.Perfil;
 import br.com.ajudaai.entidade.User;
+import br.com.ajudaai.util.EnviarEmail;
 import br.com.ajudaai.util.Mensagem;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,7 +48,11 @@ public class InstituicaoControl implements Serializable {
     private Necessidade necessidade;
     private RegistroControleUser controleUser;
     private NecessidadeDao necessidadeDao;
-
+   
+    private String mens ;
+    private String nome;
+    private String emailContato;
+    private String assunto;
     public InstituicaoControl() {
         usuarioLogadoSpring();
     }
@@ -141,6 +146,8 @@ public class InstituicaoControl implements Serializable {
                 necessidadeFor.setInstituicao(instituicao);
                 necessidadeDao.salvarOuAlterar(necessidadeFor, session);
             }
+            
+             Mensagem.sucesso("Necessidades");
 
         } catch (RuntimeException e) {
 
@@ -153,7 +160,7 @@ public class InstituicaoControl implements Serializable {
 
         }
 
-        return "/user/cadastro_necessidades.faces";
+        return "";
     }
 
     //add necessidade na tabela 
@@ -216,6 +223,8 @@ public class InstituicaoControl implements Serializable {
                 contatoFor.setInstituicao(instituicao);
                 instituicaoDao.salvarOuAlterar(instituicao, session);
             }
+            
+             Mensagem.sucesso("Contatos");
 
         } catch (RuntimeException e) {
 
@@ -228,7 +237,7 @@ public class InstituicaoControl implements Serializable {
 
         }
 
-        return "/user/cadastro_contato.faces";
+        return "";
 
     }
 
@@ -288,6 +297,8 @@ public class InstituicaoControl implements Serializable {
                 instituicaoDao.salvarOuAlterar(instituicao, session);
             }
 
+             Mensagem.sucesso("Endereço");
+            
         } catch (RuntimeException e) {
 
             e.printStackTrace();
@@ -299,7 +310,7 @@ public class InstituicaoControl implements Serializable {
 
         }
 
-        return "/user/cadastro_enderecos.faces";
+        return "";
 
     }
 
@@ -329,8 +340,6 @@ public class InstituicaoControl implements Serializable {
 
         session = HibernateUtil.abreConexao();
 
-        addEventos();
-
         try {
 
             instituicaoDao = new InstituicaoDaoImpl();
@@ -342,18 +351,20 @@ public class InstituicaoControl implements Serializable {
                 eventoFor.setInstituicao(instituicao);
                 instituicaoDao.salvarOuAlterar(instituicao, session);
             }
+            Mensagem.sucesso("Evento");
 
         } catch (RuntimeException e) {
 
             e.printStackTrace();
             System.out.println("Erro" + e.getMessage());
+            Mensagem.erro("");
 
         } finally {
 
             session.close();
 
         }
-        return "/user/cadastro_eventos.faces";
+        return "";
 
     }
 
@@ -363,6 +374,15 @@ public class InstituicaoControl implements Serializable {
         eventos.remove(e);
     }
 
+    //envia email
+    
+    public void enviaEmail(){
+    
+        EnviarEmail emailEnviar = new EnviarEmail();
+        emailEnviar.enviaEmail(emailContato, assunto, mens);
+        
+    }
+    
     public List<Instituicao> getInstituicoes() {
         return instituicoes;
     }
@@ -576,5 +596,38 @@ public class InstituicaoControl implements Serializable {
     public void setNecessidadesAtivas(List<Necessidade> necessidadesAtivas) {
         this.necessidadesAtivas = necessidadesAtivas;
     }
+
+    public String getMens() {
+        return mens;
+    }
+
+    public void setMens(String mens) {
+        this.mens = mens;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmailContato() {
+        return emailContato;
+    }
+
+    public void setEmailContato(String emailContato) {
+        this.emailContato = emailContato;
+    }
+
+    public String getAssunto() {
+        return assunto;
+    }
+
+    public void setAssunto(String assunto) {
+        this.assunto = assunto;
+    }
+    
 
 }
