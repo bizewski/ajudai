@@ -135,8 +135,63 @@
                             <!--FINAL-->
 
                             <hr />
+
+                            <h5>Ou envie uma imagem via Link:</h5>
                         </div>
                     </div>
+                    <p:messages id="messages"  closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <h:form class="user">
+                        <h:panelGroup id="cadastro_imagens" >
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <p:inputText type="text" class="form-control form-control-user" id="imagem" 
+                                                 placeholder="Link da Imagem" value="#{instituicaoC.midia.imagem}" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <p:inputText type="text" class="form-control form-control-user" id="descricao" 
+                                                 placeholder="Descrição" value="#{instituicaoC.midia.descricao}" />
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                        <!-- BOTOES -->
+
+                        <hr />
+
+                        <div class="col-sm-12 mb-3 mb-sm-0">
+                            <br/>
+                            <p:commandButton action="#{instituicaoC.addMidias()}"
+                                             update="@form" id="inserir" class="btn btn-primary btn-user btn-block" 
+                                             title="Add Links de imagens na Lista" process="@this cadastro_imagens" />
+                        </div>
+                        <br />
+
+                        <p:dataTable id="tabelaEventos" var="midia" value="#{instituicaoC.midias}" 
+                                     emptyMessage="Lista de Imagens vazia!" >
+                            <p:column headerText="Link">
+                                <h:outputText value="#{midia.imagem}" />
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{midia.descricao}" />
+                            </p:column>
+                            <p:column headerText="Ação">
+                                <p:commandLink value="Editar" actionListener="#{instituicaoC.carregarMidia(midia)}" update="@form">
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                        <br />
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <p:commandButton action="#{instituicaoC.cadastraMidias()}" class="btn btn-primary btn-user btn-block" title="Salvar" process="@this" />
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <p:commandButton ajax="true" immediate="true" type="reset" class="btn btn-primary btn-user btn-block" title="Cancelar" />
+                            </div>
+                        </div>
+
+                    </h:form>
+                    <hr />
 
 
 

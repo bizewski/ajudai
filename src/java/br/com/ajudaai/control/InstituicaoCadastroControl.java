@@ -4,6 +4,7 @@ import br.com.ajudaai.dao.HibernateUtil;
 import br.com.ajudaai.dao.InstituicaoDao;
 import br.com.ajudaai.dao.InstituicaoDaoImpl;
 import br.com.ajudaai.entidade.Contato;
+import br.com.ajudaai.entidade.Evento;
 import br.com.ajudaai.entidade.Instituicao;
 import br.com.ajudaai.entidade.Perfil;
 import br.com.ajudaai.entidade.User;
@@ -18,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -33,6 +35,7 @@ public class InstituicaoCadastroControl implements Serializable {
     private Perfil perfil;
     private Contato contato;
     private List<Instituicao> instituicaoMidias;
+    private List<Instituicao> instituicaoEventos;
 
     public InstituicaoCadastroControl() {
 
@@ -108,7 +111,7 @@ public class InstituicaoCadastroControl implements Serializable {
         return pagina;
 
     }
-
+    
     public Instituicao getInstituicao() {
         if (instituicao == null) {
 
@@ -171,15 +174,35 @@ public class InstituicaoCadastroControl implements Serializable {
                 session = HibernateUtil.abreConexao();
                 instituicaoDao = new InstituicaoDaoImpl();
                 instituicaoMidias = instituicaoDao.todasCadastradas(session);
-                
+
             } catch (HibernateException e) {
-                
+
                 System.out.println("Erro" + e.getMessage());
-                
-            }finally{
+
+            } finally {
                 session.close();
             }
         }
         return instituicaoMidias;
+    }
+
+    public List<Instituicao> getInstituicaoEventos() {
+
+        if (instituicaoEventos == null) {
+
+            try {
+                session = HibernateUtil.abreConexao();
+                instituicaoDao = new InstituicaoDaoImpl();
+                instituicaoEventos = instituicaoDao.todasCadastradas(session);
+            } catch (HibernateException ex) {
+
+                System.out.println("Erro" + ex.getMessage());
+
+            } finally {
+                session.close();
+            }
+
+        }
+        return instituicaoEventos;
     }
 }

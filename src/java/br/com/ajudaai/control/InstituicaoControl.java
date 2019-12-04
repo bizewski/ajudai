@@ -46,6 +46,7 @@ public class InstituicaoControl implements Serializable {
     private Endereco endereco;
     private Evento evento;
     private Necessidade necessidade;
+    private Midia midia;
     private RegistroControleUser controleUser;
     private NecessidadeDao necessidadeDao;
    
@@ -320,6 +321,65 @@ public class InstituicaoControl implements Serializable {
         enderecos.remove(e);
     }
 
+    
+    //add midias
+    public void addMidias() {
+
+        usuarioLogadoSpring();
+
+        if (midias == null) {
+            midias = new ArrayList<>();
+        }
+
+        midias.add(midia);
+
+        midia = new Midia();
+
+    }
+
+    
+    //cadastro de endereco 
+    public String cadastraMidias() {
+
+        session = HibernateUtil.abreConexao();
+
+        //addEndereco();
+        try {
+
+            instituicaoDao = new InstituicaoDaoImpl();
+
+            instituicao.setMidias(midias);
+
+            for (Midia midiaFor : midias) {
+
+                midiaFor.setInstituicao(instituicao);
+
+                instituicaoDao.salvarOuAlterar(instituicao, session);
+            }
+
+             Mensagem.sucesso("Imagen");
+            
+        } catch (RuntimeException e) {
+
+            e.printStackTrace();
+            System.out.println("Erro" + e.getMessage());
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return "";
+
+    }
+    
+    //edita midia
+    public void carregarMidia(Midia m) {
+        this.midia = m;
+        midias.remove(m);
+    }
+    
     //add eventos
     public void addEventos() {
 
@@ -628,6 +688,21 @@ public class InstituicaoControl implements Serializable {
     public void setAssunto(String assunto) {
         this.assunto = assunto;
     }
+
+    public Midia getMidia() {
+        if (midia == null) {
+
+            midia = new Midia();
+
+        }
+
+        return midia;
+    }
+    
+    public void setMidia(Midia midia) {
+        this.midia = midia;
+    }
+
     
 
 }
